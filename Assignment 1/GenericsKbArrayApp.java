@@ -29,6 +29,23 @@ public class GenericsKbArrayApp {
         }
     }
 
+    // Load additional statements from a file
+    public void loadAdditionalFromFile(String fileName) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split("\t");
+                String term = parts[0];
+                String sentence = parts[1];
+                double confidenceScore = Double.parseDouble(parts[2]);
+                addStatement(term, sentence, confidenceScore);
+            }
+            System.out.println("Additional statements loaded successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     // Add a new statement to the knowledge base array
     public void addStatement(String term, String sentence, double confidenceScore) {
         // Check if the term already exists in the knowledge base
@@ -90,7 +107,8 @@ public class GenericsKbArrayApp {
             System.out.println("2. Add a new statement to the knowledge base");
             System.out.println("3. Search for an item in the knowledge base by term");
             System.out.println("4. Search for an item in the knowledge base by term and sentence");
-            System.out.println("5. Quit");
+            System.out.println("5. Load additional statements from file");
+            System.out.println("6. Quit");
 
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
@@ -124,12 +142,17 @@ public class GenericsKbArrayApp {
                     searchByTermAndSentence(term, statement);
                     break;
                 case 5:
+                    System.out.print("Enter file name for additional statements: ");
+                    String additionalFileName = scanner.nextLine();
+                    loadAdditionalFromFile(additionalFileName);
+                    break;
+                case 6:
                     System.out.println("Exiting the program. Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please enter a valid option.");
             }
-        } while (choice != 5);
+        } while (choice != 6);
 
         scanner.close();
     }
