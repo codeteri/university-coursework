@@ -1,3 +1,4 @@
+// package binarytreecode;
 public class BinarySearchTree<dataType extends Comparable<? super dataType>> extends BinaryTree<dataType> {
 
     public void insert(dataType d) {

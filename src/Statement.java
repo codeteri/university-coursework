@@ -1,3 +1,4 @@
+// package binarytreecode;
 public class Statement implements Comparable<Statement> {
     private String term;
     private String sentence;
