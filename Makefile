@@ -1,34 +1,38 @@
 JC = javac
-JFLAGS = -g
-SRCDIR = src
-BINDIR = bin
+JFLAGS = -g -d bin -sourcepath src
 
-.SUFFIXES: .java .class
+bin/%.class: src/%.java
+		$(JC) $(JFLAGS) $<
 
-# Compile .java files in src directory and place .class files in bin directory
-$(BINDIR)/%.class: $(SRCDIR)/%.java
-	$(JC) $(JFLAGS) -d $(BINDIR) $<
+SOURCES = GenericsKbArrayApp.java GenericsKbBSTApp.java Statement.java
 
-# List all Java source files
-CLASSES := $(wildcard $(SRCDIR)/*.java)
+CLASSES = $(SOURCES:%.java=bin/%.class)
 
-# Convert source file names to corresponding class file names
-CLASS_FILES := $(CLASSES:$(SRCDIR)/%.java=$(BINDIR)/%.class)
+default: $(CLASSES)
 
-# Default target: compile all .java files
-default: classes
 
-# Compile all .java files
-classes: $(CLASS_FILES)
+compile_array:
+	javac src/Statement.java
+	javac src/GenericsKbArrayApp.java
+	javac src/BinarySearchTree.java
+	javac src/BinaryTreeNode.java
+	javac src/BinaryTree.java
+	javac src/BTQueue.java
+	javac src/BTQueueNode.java
 
-# Clean up all generated .class files
+compile_bst:
+	javac src/GenericsKbBSTApp.java
+	javac src/BinarySearchTree.java
+	javac src/BinaryTreeNode.java
+	javac src/BinaryTree.java
+	javac src/BTQueue.java
+	javac src/BTQueueNode.java
+
 clean:
-	$(RM) $(BINDIR)/*.class
+	$(RM) bin/*.class
 
-# Run the GenericsKbArrayApp
-run_array: classes
-	java -cp $(BINDIR) GenericsKbArrayApp
+run_array: bin/GenericsKbArrayApp.class
+	java -cp bin GenericsKbArrayApp
 
-# Run the GenericsKbBSTApp
-run_bst: classes
-	java -cp $(BINDIR) GenericsKbBSTApp
+run_bst: bin/GenericsKbBSTApp.class
+	java -cp bin GenericsKbBSTApp
