@@ -28,6 +28,10 @@ compile_bst:
 	javac src/BTQueue.java
 	javac src/BTQueueNode.java
 
+javadoc:
+	javadoc -d doc -sourcepath src/*.java
+
+
 clean:
 	$(RM) bin/*.class
 

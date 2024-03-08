@@ -53,7 +53,7 @@ public class GenericsKbArrayApp {
         for (int i = 0; i < knowledgeBaseSize; i++) {
             if (knowledgeBase[i].getTerm().equals(term)) {
                 // Update the statement if the new confidence score is higher
-                if (confidenceScore > knowledgeBase[i].getConfidenceScore()) {
+                if (confidenceScore >= knowledgeBase[i].getConfidenceScore()) {
                     knowledgeBase[i].setSentence(sentence);
                     knowledgeBase[i].setConfidenceScore(confidenceScore);
                     System.out.println("Statement for term " + term + " has been updated.");
